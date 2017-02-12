@@ -1,0 +1,15 @@
+DECLARE
+  v_fecha_alquiler DATE:= '12/12/1990';
+  v_cinco_anios BOOLEAN;
+  
+  
+  BEGIN
+  DBMS_OUTPUT.PUT_LINE ('Prueba');
+  IF MONTHS_BETWEEN (SYSDATE, v_fecha_alquiler) /12 > 5 THEN
+    DBMS_OUTPUT.PUT_LINE ('Han pasado mas de 5 anios');
+   ELSE
+    DBMS_OUTPUT.PUT_LINE ('No han pasado mas de 5 anios');
+   END IF;
+   
+   
+   END;
