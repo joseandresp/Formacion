@@ -1,1 +1,64 @@
-package com.controller;import java.io.IOException;import java.util.ArrayList;import javax.servlet.RequestDispatcher;import javax.servlet.ServletException;import javax.servlet.annotation.WebServlet;import javax.servlet.http.HttpServlet;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import com.model.DAO.EmpleadoDAO;import com.model.DTO.EmpleadoDTO;@WebServlet("/MostrarEmplados")public class MostrarEmpleados extends HttpServlet { private static final long serialVersionUID = 1L;         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    ArrayList<EmpleadoDTO> listaEmpleados = new ArrayList<>();  listaEmpleados=EmpleadoDAO.RecogerEmpleados();     RequestDispatcher rd;   request.setAttribute("lista",listaEmpleados);  rd = request.getRequestDispatcher("./WEB-INF/LoginOK.jsp");  rd.forward(request,response);   }    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     ArrayList<EmpleadoDTO> listaEmpleados = new ArrayList<>();  listaEmpleados=EmpleadoDAO.RecogerEmpleados();     RequestDispatcher rd;   request.setAttribute("lista",listaEmpleados);  rd = request.getRequestDispatcher("./WEB-INF/LoginOK.jsp");  rd.forward(request,response);  }}/* String nombre = request.getParameter("name"); int cod_Empleado = Integer.parseInt(request.getParameter("id")); int edad = Integer.parseInt(request.getParameter("edad")); RequestDispatcher rd; EmpleadoDTO empleadoSeleccionado = new EmpleadoDTO(cod_Empleado,nombre,edad); request.setAttribute("empleadonuevo",empleadoSeleccionado); rd = request.getRequestDispatcher("./WEB-INF/Perfil.jsp"); rd.forward(request,response); */
+package com.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.model.DAO.EmpleadoDAO;
+import com.model.DTO.EmpleadoDTO;
+
+
+
+
+@WebServlet("/MostrarEmplados")
+public class MostrarEmpleados extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+        
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		ArrayList<EmpleadoDTO> listaEmpleados = new ArrayList<>();
+		listaEmpleados=EmpleadoDAO.RecogerEmpleados(); 
+		
+		RequestDispatcher rd;	
+		request.setAttribute("lista",listaEmpleados);
+		rd = request.getRequestDispatcher("./WEB-INF/LoginOK.jsp");
+		rd.forward(request,response);	
+	
+
+	}
+
+	
+	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+		ArrayList<EmpleadoDTO> listaEmpleados = new ArrayList<>();
+		listaEmpleados=EmpleadoDAO.RecogerEmpleados(); 
+		
+		RequestDispatcher rd;	
+		request.setAttribute("lista",listaEmpleados);
+		rd = request.getRequestDispatcher("./WEB-INF/LoginOK.jsp");
+		rd.forward(request,response);	
+	}
+}
+
+
+
+/*
+	String nombre = request.getParameter("name");
+	int cod_Empleado = Integer.parseInt(request.getParameter("id"));
+	int edad = Integer.parseInt(request.getParameter("edad"));
+	RequestDispatcher rd;
+	EmpleadoDTO empleadoSeleccionado = new EmpleadoDTO(cod_Empleado,nombre,edad);
+	request.setAttribute("empleadonuevo",empleadoSeleccionado);
+	rd = request.getRequestDispatcher("./WEB-INF/Perfil.jsp");
+	rd.forward(request,response);
+	
+
+*/
