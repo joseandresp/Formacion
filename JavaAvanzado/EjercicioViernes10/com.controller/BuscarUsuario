@@ -1,1 +1,55 @@
-package com.controller;import java.io.IOException;import javax.servlet.RequestDispatcher;import javax.servlet.ServletException;import javax.servlet.annotation.WebServlet;import javax.servlet.http.HttpServlet;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import com.model.DAO.UsuarioDAO;@WebServlet("/BuscarUsuario")public class BuscarUsuario extends HttpServlet { private static final long serialVersionUID = 1L;         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { }    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    RequestDispatcher rd;    String user = request.getParameter("userid");  String pass = request.getParameter("clave");  boolean userExist;  userExist=UsuarioDAO.BusquedaUsuario(user, pass);    if(userExist){   rd = request.getRequestDispatcher("/MostrarEmplados");   rd.forward(request,response);   System.out.println("El empleado buscado existe");          }else{   rd = request.getRequestDispatcher("./Login.jsp");   rd.forward(request,response);     }  }}/*rd = request.getRequestDispatcher("./Index.jsp");rd.forward(request,response); rd = request.getRequestDispatcher("TodoBien.jsp");rd.forward(request,response); // send redirect es para que te muestre una pagina sin datos*/
+package com.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.model.DAO.UsuarioDAO;
+
+
+@WebServlet("/BuscarUsuario")
+public class BuscarUsuario extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+        
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+	
+	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		RequestDispatcher rd;
+		
+		String user = request.getParameter("userid");
+		String pass = request.getParameter("clave");
+		boolean userExist;
+		userExist=UsuarioDAO.BusquedaUsuario(user, pass);
+		
+		if(userExist){
+			rd = request.getRequestDispatcher("/MostrarEmplados");
+			rd.forward(request,response);
+			System.out.println("El empleado buscado existe");
+			
+					
+		}else{
+			rd = request.getRequestDispatcher("./Login.jsp");
+			rd.forward(request,response);			
+		}
+	
+	}
+}
+
+/*
+rd = request.getRequestDispatcher("./Index.jsp");
+rd.forward(request,response);	
+rd = request.getRequestDispatcher("TodoBien.jsp");
+rd.forward(request,response);	
+// send redirect es para que te muestre una pagina sin datos
+*/
