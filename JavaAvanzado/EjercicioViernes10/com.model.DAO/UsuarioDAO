@@ -1,1 +1,68 @@
-package com.model.DAO;import java.sql.Connection;import java.sql.PreparedStatement;import java.sql.ResultSet;import java.sql.SQLException;import java.util.ArrayList;import java.util.Scanner;import com.common.DatabaseConnection;public class UsuarioDAO {  public static boolean BusquedaUsuario (String user, String pass){    Connection conexion = null;  PreparedStatement statement = null;  ResultSet resultado = null;    boolean existe=false;    try {   // Establecemos conexion con base de datos    conexion = DatabaseConnection.getConnection();   // Preparamos la consulta   String consulta = "SELECT * FROM USUARIOS";   statement = conexion.prepareStatement(consulta);   // Ejecutamos la SENTENCIA   resultado = statement.executeQuery();   // Buscamos si existe un usuario que coincida con los argumentos    while (resultado.next()) {    if(resultado.getString(1).equals(user) && resultado.getString(2).equals(pass) ){     existe=true;     //System.out.println("El usuario buscado existe");     break;    }   }  } catch (SQLException e) {   System.out.println("Fallo en la busqueda del usuario");   e.printStackTrace();  } finally {      try {    statement.close();    conexion.close();   } catch (SQLException e) {    System.out.println("Aqui esta ocurriendo un fallo");    e.printStackTrace();   }  }    return existe;   }  /*Esta parte es para probar si funciona la busqueda de Usuario public static void main(String[] args){    boolean comprobacion;  comprobacion=BusquedaUsuario("DAVID","1234");  System.out.println(comprobacion);   }*/}
+package com.model.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import com.common.DatabaseConnection;
+
+public class UsuarioDAO {
+	
+	public static boolean BusquedaUsuario (String user, String pass){
+		
+		Connection conexion = null;
+		PreparedStatement statement = null;
+		ResultSet resultado = null;
+		
+		boolean existe=false;
+		
+		try {
+			// Establecemos conexion con base de datos 
+			conexion = DatabaseConnection.getConnection();
+
+			// Preparamos la consulta
+			String consulta = "SELECT * FROM USUARIOS";
+			statement = conexion.prepareStatement(consulta);
+
+			// Ejecutamos la SENTENCIA
+			resultado = statement.executeQuery();
+
+			// Buscamos si existe un usuario que coincida con los argumentos 
+			while (resultado.next()) {
+				if(resultado.getString(1).equals(user) && resultado.getString(2).equals(pass) ){
+					existe=true;
+					//System.out.println("El usuario buscado existe");
+					break;
+				}
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Fallo en la busqueda del usuario");
+			e.printStackTrace();
+		} finally {
+			
+			try {
+				statement.close();
+				conexion.close();
+			} catch (SQLException e) {
+				System.out.println("Aqui esta ocurriendo un fallo");
+				e.printStackTrace();
+			}
+		}		
+		return existe;		
+	}
+	
+	/*Esta parte es para probar si funciona la busqueda de Usuario
+	public static void main(String[] args){
+		
+		boolean comprobacion;
+		comprobacion=BusquedaUsuario("DAVID","1234");
+		System.out.println(comprobacion);
+		
+	}*/
+
+}
+
