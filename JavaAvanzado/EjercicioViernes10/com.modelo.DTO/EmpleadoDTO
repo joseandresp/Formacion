@@ -1,1 +1,45 @@
-package com.model.DTO;public class EmpleadoDTO {  private int cod_empleado; private String nombre; private int edad;  public EmpleadoDTO(){};  public EmpleadoDTO(int cod_empleado, String nombre, int edad) {  super();  this.cod_empleado = cod_empleado;  this.nombre = nombre;  this.edad = edad; } public int getCod_empleado() {  return cod_empleado; } public void setCod_empleado(int cod_empleado) {  this.cod_empleado = cod_empleado; } public String getNombre() {  return nombre; } public void setNombre(String nombre) {  this.nombre = nombre; } public int getEdad() {  return edad; } public void setEdad(int edad) {  this.edad = edad; }  }
+package com.model.DTO;
+
+public class EmpleadoDTO {
+	
+	private int cod_empleado;
+	private String nombre;
+	private int edad;
+	
+	public EmpleadoDTO(){};
+	
+	public EmpleadoDTO(int cod_empleado, String nombre, int edad) {
+		super();
+		this.cod_empleado = cod_empleado;
+		this.nombre = nombre;
+		this.edad = edad;
+	}
+
+	public int getCod_empleado() {
+		return cod_empleado;
+	}
+
+	public void setCod_empleado(int cod_empleado) {
+		this.cod_empleado = cod_empleado;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+	
+	
+
+}
+
