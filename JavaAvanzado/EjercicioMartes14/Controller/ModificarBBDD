@@ -1,0 +1,67 @@
+package com.controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.model.DAO.CocheDAO;
+import com.model.DTO.CocheDTO;
+
+
+
+
+
+
+@WebServlet("/ModificarBBDD")
+public class ModificarBBDD extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+        
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+
+	
+	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		RequestDispatcher rd;
+	
+		int idCoche = Integer.parseInt(request.getParameter("idCoche"));
+		String modelo = request.getParameter("modelo");
+		String color = request.getParameter("color"); 
+		int idMarca =  Integer.parseInt(request.getParameter("marca"));
+		String action =  request.getParameter("action");
+	
+			
+		switch (action) {
+        case   "IngresarCoche":
+				CocheDAO.CrearCoche(idCoche, modelo, color, idMarca);
+        		break;
+        		
+        case   "EditarCoche": 		
+    			CocheDAO.ModificarCoche(idCoche, modelo, color, idMarca);
+    			break;
+    	
+        case   "EliminarCoche":
+        		CocheDAO.BorrarCoche(idCoche);
+        		break;
+        	   
+        default: break;
+    }
+		
+		ArrayList<CocheDTO> listaCoches = new ArrayList<>();
+		listaCoches=CocheDAO.RecogerCoches(idMarca);
+		request.setAttribute("listaCoches",listaCoches);
+		rd = request.getRequestDispatcher("./WEB-INF/MostrarCoches.jsp");
+		rd.forward(request,response);
+	
+	}
+}
