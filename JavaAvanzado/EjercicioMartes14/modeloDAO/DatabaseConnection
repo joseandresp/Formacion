@@ -1,0 +1,41 @@
+package com.model.DAO;
+
+import java.sql.*;
+
+import oracle.jdbc.OracleDriver;
+
+public class DatabaseConnection {
+	public static Connection getConnection() throws SQLException {
+		
+		Connection conexion = null;
+		
+		String baseDatos = "jdbc:oracle:thin:@localhost:1521/XE";
+		// Usuario y contraseña para acceder a la BBDD
+		String user = "TEST";
+		String pass = "TEST1";
+
+		try {
+			// Carga el driver
+			
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Driver myDriver = new OracleDriver();
+			DriverManager.registerDriver(myDriver);
+
+			// Obtencion de la conexion a la base de datos
+			conexion = DriverManager.getConnection(baseDatos, user, pass);
+
+		
+			 //if (conexion.isValid(0)) { System.out.println("CONECTADO"); }
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("Clase OracleDriver no encontrada");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("Se ha producido un error de Conexion");
+			e.printStackTrace();
+		}
+
+		return conexion;
+	}
+}
+
