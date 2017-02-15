@@ -1,0 +1,58 @@
+package com.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.model.DAO.UsuarioDAO;
+
+
+
+
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+        
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+
+	
+	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		RequestDispatcher rd;
+		
+		String user = request.getParameter("userid");
+		String pass = request.getParameter("pass");
+		
+		boolean userExist;
+		userExist=UsuarioDAO.BusquedaUsuario(user, pass);
+		
+		boolean vendedor= UsuarioDAO.BusquedaVendedor(user, pass);
+	    //System.out.println(vendedor);
+		
+		if(userExist){
+			
+			request.setAttribute("vendedor",vendedor);
+			rd = request.getRequestDispatcher("/ListarMarcasServlet");
+			rd.forward(request,response);
+		
+			//Aqui deberiamos añadir parametros que se fuesen pasando entre servlet y jsp para comprobar la sesion 
+			
+					
+		}else{
+			rd = request.getRequestDispatcher("./Index.jsp");
+			rd.forward(request,response);	
+			//System.out.println("El Usuario buscado no existe");
+		}
+	
+	}
+}
+
