@@ -1,0 +1,36 @@
+package com.model.DTO;
+
+public class MarcaDTO {
+	
+	private int idMarca;
+	private String nombreMarca;
+	
+	public MarcaDTO(){}
+	
+	public MarcaDTO(int idMarca, String nombreMarca) {
+		super();
+		this.idMarca = idMarca;
+		this.nombreMarca = nombreMarca;
+	}
+
+	public int getIdMarca() {
+		return idMarca;
+	}
+
+	public void setIdMarca(int idMarca) {
+		this.idMarca = idMarca;
+	}
+
+	public String getNombreMarca() {
+		return nombreMarca;
+	}
+
+	public void setNombreMarca(String nombreMarca) {
+		this.nombreMarca = nombreMarca;
+	}
+	
+	
+	
+	
+
+}
