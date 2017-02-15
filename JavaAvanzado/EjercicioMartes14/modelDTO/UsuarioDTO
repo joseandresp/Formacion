@@ -1,0 +1,56 @@
+package com.model.DTO;
+
+public class UsuarioDTO {
+	
+	private int idUser;
+	private String name;
+	private String pass;
+	private boolean Seller;
+	
+	public UsuarioDTO(){}
+	
+	public UsuarioDTO(int idUser, String name, String pass, boolean seller) {
+		super();
+		this.idUser = idUser;
+		this.name = name;
+		this.pass = pass;
+		Seller = seller;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public boolean isSeller() {
+		return Seller;
+	}
+
+	public void setSeller(boolean seller) {
+		Seller = seller;
+	} 
+	
+	
+	
+	
+
+}
