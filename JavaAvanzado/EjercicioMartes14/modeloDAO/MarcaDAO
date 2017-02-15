@@ -1,0 +1,55 @@
+package com.model.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+
+public class MarcaDAO {
+	
+	public static ArrayList<String> RecogerMarcas() {	
+		Connection conexion = null;
+		PreparedStatement statement = null;
+		ResultSet resultado = null;
+		
+		ArrayList<String> listadoMarcas = new ArrayList<>();
+
+		try {
+			// Establecemos conexion con base de datos 
+			conexion = DatabaseConnection.getConnection();
+
+			// Preparamos la consulta
+			String consulta = "SELECT * FROM MARCA";
+			statement = conexion.prepareStatement(consulta);
+
+			// Ejecutamos la consulta y guardamos en un objeto los resultado
+			resultado = statement.executeQuery();
+			
+			
+
+
+			// Recorremos los resultados y los guardamos en el Array 
+			while (resultado.next()) {			
+				listadoMarcas.add(resultado.getString(2));	
+				//System.out.println(resultado.getString(2));
+			    			}
+
+		} catch (SQLException e) {
+			System.out.println("Fallo listando el Cliente");
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+				conexion.close();
+			} catch (SQLException e) {
+				System.out.println("Falla AQUI &");
+				e.printStackTrace();
+			}
+		}
+
+		return listadoMarcas;
+	}
+
+}
