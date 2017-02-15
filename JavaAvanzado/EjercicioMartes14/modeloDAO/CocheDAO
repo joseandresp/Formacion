@@ -1,0 +1,244 @@
+package com.model.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.model.DTO.CocheDTO;
+
+public class CocheDAO {
+
+	public static ArrayList<CocheDTO> RecogerCoches(String Marca) {
+		Connection conexion = null;
+		PreparedStatement statement = null;
+		ResultSet resultado = null;
+
+		ArrayList<CocheDTO> listadoCoches = new ArrayList<>();
+		CocheDTO coche;
+
+		try {
+			// Establecemos conexion con base de datos
+			conexion = DatabaseConnection.getConnection();
+
+			// Preparamos la consulta ARREGLAR ESTO
+			String consulta = "SELECT * FROM COCHE WHERE ID_MARCA=(SELECT ID_MARCA FROM MARCA WHERE NOMBRE_MARCA='"
+					+ Marca + "')";
+
+			statement = conexion.prepareStatement(consulta);
+
+			// Ejecutamos la consulta y guardamos en un objeto los resultado
+			resultado = statement.executeQuery();
+
+			// Recorremos los resultados y los guardamos en el Array
+			while (resultado.next()) {
+				coche = new CocheDTO();
+				coche.setIdCoche(resultado.getInt(1));
+				coche.setModelo(resultado.getString(2));
+				coche.setColor(resultado.getString(3));
+				coche.setIdMarca(resultado.getInt(4));
+				listadoCoches.add(coche);
+
+				/*
+				 * System.out.println(resultado.getInt(1)); System.out.println(
+				 * resultado.getString(2));
+				 * System.out.println(resultado.getString(3));
+				 * System.out.println(resultado.getInt(4));
+				 */
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Fallo listando los coches");
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+				conexion.close();
+			} catch (SQLException e) {
+				System.out.println("Falla AQUI &");
+				e.printStackTrace();
+			}
+		}
+
+		return listadoCoches;
+	}
+
+	public static void CrearCoche(int id, String modelo, String color, int idMarca) {
+
+		Connection conexion = null;
+		Statement statement = null;
+		ResultSet resultado = null;
+
+		try {
+			// Establecemos conexion con base de datos
+			conexion = DatabaseConnection.getConnection();
+
+			
+
+			PreparedStatement ps = conexion.prepareStatement("INSERT INTO COCHE (ID_COCHE,MODELO,COLOR,ID_MARCA) VALUES (?,?,?,?)");
+			// set the preparedstatement parameters
+			ps.setInt(1, id);
+			ps.setString(2, modelo);
+			ps.setString(3, color);
+			ps.setInt(4, idMarca);
+
+			// call executeUpdate to execute our sql update statement
+			ps.executeUpdate();
+			ps.close();
+
+		}
+
+		catch (SQLException e) {
+			System.out.println("Fallo ingresando los coches");
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+				conexion.close();
+			} catch (SQLException e) {
+				System.out.println("Falla AQUI &");
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void BorrarCoche(int idBorrar)  {
+
+		Connection conexion = null;
+		Statement statement = null;
+		ResultSet resultado = null;
+
+		try {
+			// Establecemos conexion con base de datos
+			conexion = DatabaseConnection.getConnection();
+
+			// Preparamos la consulta ARREGLAR ESTO
+			String consulta = "DELETE FROM COCHE  WHERE ID_COCHE=" + idBorrar;
+			statement = conexion.createStatement();
+			statement.executeUpdate(consulta);
+
+		
+
+		}
+
+		catch (SQLException e) {
+			System.out.println("Fallo listando los coches");
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+				conexion.close();
+			} catch (SQLException e) {
+				System.out.println("Falla AQUI &");
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void ModificarCoche(int id, String modelo, String color, int idMarca)  {
+
+		Connection conexion = null;
+		Statement statement = null;
+		ResultSet resultado = null;
+
+		try {
+			// Establecemos conexion con base de datos
+			conexion = DatabaseConnection.getConnection();
+
+			// Preparamos la consulta ARREGLAR ESTO
+			String consulta = "UPDATE COCHE SET MODELO='" + modelo + "', COLOR='" + color + "', ID_MARCA=" + idMarca
+					+ "WHERE ID_COCHE=" + id;
+			statement = conexion.createStatement();
+			statement.executeUpdate(consulta);
+
+			/*
+			 * UPDATE EMPLEADOS SET CODIGO_EMPLEADO=2, NOMBRE_EMPLEADO='PEPE',
+			 * EDAD=59, TELEFONO='555-55-55-55',EMAIL='empleado12@deloitte.es',
+			 * CODIGO_DEPARTAMENTO=2 WHERE CODIGO_EMPLEADO=2;
+			 * 
+			 * (ID_COCHE,MODELO,COLOR,ID_MARCA) VALUES ("+id + modelo + "','
+			 * " + color + "'," + idMarca + ")";
+			 */
+
+		}
+
+		catch (SQLException e) {
+			System.out.println("Fallo listando los coches");
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+				conexion.close();
+			} catch (SQLException e) {
+				System.out.println("Falla AQUI &");
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static ArrayList<CocheDTO> RecogerCoches(int id) {
+		Connection conexion = null;
+		PreparedStatement statement = null;
+		ResultSet resultado = null;
+
+		ArrayList<CocheDTO> listadoCoches = new ArrayList<>();
+		CocheDTO coche;
+
+		try {
+			// Establecemos conexion con base de datos
+			conexion = DatabaseConnection.getConnection();
+
+			// Preparamos la consulta ARREGLAR ESTO
+			String consulta = "SELECT * FROM COCHE WHERE ID_MARCA=" + id;
+
+			statement = conexion.prepareStatement(consulta);
+
+			// Ejecutamos la consulta y guardamos en un objeto los resultado
+			resultado = statement.executeQuery();
+
+			// Recorremos los resultados y los guardamos en el Array
+			while (resultado.next()) {
+				coche = new CocheDTO();
+				coche.setIdCoche(resultado.getInt(1));
+				coche.setModelo(resultado.getString(2));
+				coche.setColor(resultado.getString(3));
+				coche.setIdMarca(resultado.getInt(4));
+				listadoCoches.add(coche);
+
+				/*
+				 * System.out.println(resultado.getInt(1)); System.out.println(
+				 * resultado.getString(2));
+				 * System.out.println(resultado.getString(3));
+				 * System.out.println(resultado.getInt(4));
+				 */
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Fallo listando los coches");
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+				conexion.close();
+			} catch (SQLException e) {
+				System.out.println("Falla AQUI &");
+				e.printStackTrace();
+			}
+		}
+
+		return listadoCoches;
+	}
+
+	public static void main(String[] args) throws SQLException {
+
+		// BorrarCoche(6);
+		// CrearCoche(6,"DELOITTE","GRIS",1);
+		ModificarCoche(1, "MONDEO", "VERDE", 1);
+
+	}
+
+}
