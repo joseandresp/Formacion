@@ -1,0 +1,31 @@
+package es.dxd.form.ejc06;
+
+public class ClientException extends Exception {
+	private static final long serialVersionUID = 1L;
+	private String errorCode;
+
+	public ClientException() {
+	}
+
+	public ClientException(String message) {
+		super(message);
+	}
+
+	public ClientException(String code, String message) {
+		super(message);
+		this.errorCode = code;
+	}
+
+	public ClientException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	@Override
+	public String getMessage() {
+		return super.getMessage();
+	}
+
+	public String getErrorCode() {
+		return this.errorCode;
+	}
+}
