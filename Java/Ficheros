@@ -1,0 +1,109 @@
+package es.dxd;
+
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class GuardaCarro {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		ArrayList<CarroCompra> listaCarros = new ArrayList<CarroCompra>();
+		CarroCompra carro;
+		String idCarro;
+		do {
+			System.out.println("Inserta un id para el carro (q para salir):");
+			idCarro = scan.nextLine();
+			carro = new CarroCompra(idCarro);
+			if (!"q".equalsIgnoreCase(idCarro)) {
+				String idItem;
+				do {
+					Item producto;
+					System.out.println("Introduce un producto (q para salir):");
+					System.out.println("Id:");
+					idItem = scan.nextLine();
+					if (!"q".equalsIgnoreCase(idItem)) {
+						System.out.println("Descripcion:");
+						String descripcion = scan.nextLine();
+						System.out.println("Precio:");
+						double precio = Double.parseDouble(scan.nextLine());
+						producto = new Item(idItem, descripcion, precio);
+						carro.incluirProducto(producto);
+					}
+				} while (!"q".equalsIgnoreCase(idItem));
+				listaCarros.add(carro);
+			}
+		} while (!"q".equalsIgnoreCase(idCarro));
+		
+		FileOutputStream fout = null;
+		ObjectOutputStream oos = null;
+		try{
+			fout = new FileOutputStream("carts.ser");
+			oos = new ObjectOutputStream(fout);
+			for (CarroCompra carroCompra : listaCarros) {
+				oos.writeObject(carroCompra);
+			}
+		} catch (IOException e) {
+			System.out.println("Error al escribir el archivo");
+		} finally {
+			try {
+				oos.close();
+				fout.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		ArrayList<CarroCompra> listaLeida = new ArrayList<>();
+		
+		FileInputStream fin = null;
+		ObjectInputStream ois = null;
+		try{
+			fin = new FileInputStream("carts.ser");
+			ois = new ObjectInputStream(fin);
+			
+			boolean check=true;
+			while (check) {
+			   try{
+				   CarroCompra carro1 = (CarroCompra) ois.readObject();
+				   listaLeida.add(carro1);
+			   } catch(EOFException ex){
+			       check=false;
+			   } catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			
+		} catch (IOException e) {
+			System.out.println("Error al escribir el archivo");
+		} finally {
+			try {
+				ois.close();
+				fin.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		for (int i = 0; i < listaLeida.size(); i++) {
+			System.out.println(listaLeida.get(i));
+			for (int j = 0; j < listaLeida.get(i).getProductos().size(); j++) {
+				System.out.println(listaLeida.get(i).getProductos().get(j));
+			}
+			System.out.println();
+		}
+		
+		
+	}
+}
