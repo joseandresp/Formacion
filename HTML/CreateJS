@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Registro</title>
+    <LINK rel="stylesheet" href="estilos.css" type="text/css">
+	<script type="text/javascript"> 
+	
+		function rota()
+		{
+			var imagen=document.getElementById("imagen");
+			if(imagen.src.split("/").pop() =="logo2.png"){
+				var img=new Image();
+				img.src="logoo.png";
+				imagen.src="logoo.png";
+				}
+			else{
+				var img=new Image();
+				img.src="logo2.png";
+				imagen.src="logo2.png";
+				}
+		}
+		function registro()
+		{
+			if ((document.getElementById('nombre').value == "") && (document.getElementById('apellido').value == "")
+			&&	(document.getElementById('email').value == "") && (document.getElementById('user').value == "") 
+			&& (document.getElementById('pass1').value == "") && (document.getElementById('pass2').value == "") && (document.getElementById('file').value == "")) 
+			{
+				alert("Falta de introducir datos obligatorios");
+			}
+			else if ((document.getElementById('telefono').value != "") && (document.getElementById('telefono').value.charAt(0) != 9) &&
+			(document.getElementById('telefono').value.charAt(0) != 8) && (document.getElementById('telefono').value.charAt(0) != 7))
+			{
+				alert("El telefono debe empezar por 9, 8 o 7");
+			}
+			else if (document.getElementById('user').value.length < 6)
+			{
+				alert("El usuario debe tener al menos 6 caracteres");
+			}
+			else
+			{
+			alert("miau");
+			document.getElementById('form').submit();
+			}
+		}
+		
+		
+
+		
+		
+		
+		
+		
+		</script>
+	
+	
+	
+</head>
+
+<body>
+    <div>
+        <img style="margin: 20px" src="logo2.png" alt="Logo Deloitte" id="imagen" onclick="rota()">
+    </div>
+
+    <div style="margin-bottom: 20px">
+        <ul style="padding-left: 0px">
+            <li style="display: inline-block;"><a href=""> Nuestra Compania </a> </li>
+            <li style="display: inline-block;"><a href=""> Noticias </a> </li>
+            <li style="display: inline-block;"><a href=""> Mapa Web </a> </li>
+            <li style="display: inline-block;"><a href="mailto:curso@deloitte.es?Subject=Contactar">Contacto</a></li>
+        </ul>
+    </div>
+
+    <div style="margin-left:30px">
+        Usted esta en : <a class="bold" href="loginJS.html"> Inicio </a> > <a class="bold" href="registroJS.html">Registro de usuarios</a>
+    </div>
+
+    <div style="margin-left:30px">
+        <br> &quot;Bienvenido a la p&aacute;gina de registro, por favor rellene los campos que se muestran a continuaci&oacute;n&quot;
+        <br> &quot;NOTA: Los campos marcados con (*) son obligatorios
+        <br>
+        <br>
+    </div>
+    <form style="margin-left:40px" action="noexisteJS.html" method="get" id="form">
+    <div style="width:50%; float:left">
+        <h3>Datos personales</h3> Nombre: *
+        <input type="text" name="nombre" maxlength="50" class="formulario" id="nombre">
+        <br> Apellidos: *
+        <input type="text" name="apellido" maxlength="100" class="formulario" id="apellido">
+        <br> Sexo:
+        <input type="radio" name="sexo" class="check" checked>Hombre
+        <input type="radio" name="sexo" class="check">Mujer
+        <br> Direcci&oacute;n:
+        <input type="text" name="direccion" maxlength="250" class="formulario">
+        <br> Provincia:
+        <select id="formulario">
+            <option value='alava'>Alava</option>
+            <option value='albacete'>Albacete</option>
+            <option value='alicante'>Alicante/Alacant</option>
+            <option value='almeria'>Almer&iacute;a</option>
+            <option value='asturias'>Asturias</option>
+            <option value='avila'>Avila</option>
+            <option value='badajoz'>Badajoz</option>
+            <option value='barcelona'>Barcelona</option>
+            <option value='burgos'>Burgos</option>
+            <option value='caceres'>C&aacute;ceres</option>
+            <option value='cadiz'>C&aacute;diz</option>
+            <option value='cantabria'>Cantabria</option>
+            <option value='castellon'>Castell&oacute;n/Castell&oacute;</option>
+            <option value='ceuta'>Ceuta</option>
+            <option value='ciudadreal'>Ciudad Real</option>
+            <option value='cordoba'>C&oacute;rdoba</option>
+            <option value='cuenca'>Cuenca</option>
+            <option value='girona'>Girona</option>
+            <option value='laspalmas'>Las Palmas</option>
+            <option value='granada'>Granada</option>
+            <option value='guadalajara'>Guadalajara</option>
+            <option value='guipuzcoa'>Guip&uacute;zcoa</option>
+            <option value='huelva'>Huelva</option>
+            <option value='huesca'>Huesca</option>
+            <option value='illesbalears'>Illes Balears</option>
+            <option value='jaen'>Ja&eacute;n</option>
+            <option value='acoru�a'>A Coru&ntilde;a</option>
+            <option value='larioja'>La Rioja</option>
+            <option value='leon'>Le&oacute;n</option>
+            <option value='lleida'>Lleida</option>
+            <option value='lugo'>Lugo</option>
+            <option value='madrid'>Madrid</option>
+            <option value='malaga'>M&aacute;laga</option>
+            <option value='melilla'>Melilla</option>
+            <option value='murcia'>Murcia</option>
+            <option value='navarra'>Navarra</option>
+            <option value='ourense'>Ourense</option>
+            <option value='palencia'>Palencia</option>
+            <option value='pontevedra'>Pontevedra</option>
+            <option value='salamanca'>Salamanca</option>
+            <option value='segovia'>Segovia</option>
+            <option value='sevilla'>Sevilla</option>
+            <option value='soria'>Soria</option>
+            <option value='tarragona'>Tarragona</option>
+            <option value='santacruztenerife'>Santa Cruz de Tenerife</option>
+            <option value='teruel'>Teruel</option>
+            <option value='toledo'>Toledo</option>
+            <option value='valencia'>Valencia/Val&eacute;ncia</option>
+            <option value='valladolid'>Valladolid</option>
+            <option value='vizcaya'>Vizcaya</option>
+            <option value='zamora'>Zamora</option>
+            <option value='zaragoza'>Zaragoza</option>
+
+        </select>
+        <br> Poblaci&oacute;n:
+        <input type="text" name="poblacion" maxlength="100" class="formulario">
+        <br> Tel&eacute;fono:
+        <input type="text" name="telefono" maxlength="9" class="formulario" id="telefono">
+        <br> Email: *
+        <input type="text" name="email" maxlength="100" class="formulario" id="email">
+        <br>
+</div>
+<div style="width:50%; float:right">
+        <h3>Datos de usuario </h3> Usuario: *
+        <input type="text" name="usuario" maxlength="20" class="formulario" id="user">
+        <br> Contrase&ntilde;a: *
+        <input type="password" name="contrasena" maxlength="30" class="formulario" id="pass1">
+        <br> Repite contrase&ntilde;a: *
+        <input type="password" name="repitecontrasena" maxlength="30" class="formulario" id="pass2">
+        <br> Avatar: *
+        <input type="file" name="fichero" class="formulario" id="file">
+        <br> Deseo recibir informaci&oacute;n sobre noticias y actualizaciones
+        <input type="radio" name="check" checked>Si
+        <input type="radio" name="check">No
+        <br>
+</div>
+        <input class="button" type="button" value="Reg&iacute;strate" name="registrar" onclick="registro();">
+    </form>
+    <div class="footer" style="float:left;width:100%;">
+        <p>&quot;Curso JAVA WEB&quot; 2016 &copy;</p>
+    </div>
+
+</body>
+
+</html>
