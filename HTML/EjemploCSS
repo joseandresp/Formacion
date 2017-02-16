@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+    <title>Principal</title>
+	<LINK rel="stylesheet" href="estilos.css" type="text/css"> 
+	
+</head>
+
+<body>
+    <div>
+        <img style="margin: 20px" src="logo2.png" alt="Logo Deloitte" id="imagen">
+    </div>
+
+    <div style="margin-bottom: 20px">
+        <ul style="padding-left: 0px">
+            <li style="display: inline-block;"><a href="#"> Nuestra Compania </a> </li>
+            <li style="display: inline-block;"><a href="#"> Noticias </a> </li>
+            <li style="display: inline-block;"><a href="#"> Mapa Web </a> </li>
+            <li style="display: inline-block;"><a href="mailto:alguien@alguien.es?Subject=Contactar" id="contacto">Contacto</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="background" style="float:left;width:15%;padding-left:30px">
+	<div id="ErrorPassword"></div>
+        Nombre:
+        <input type="text" name="userid" class="formulario" placeholder="Maria" id="user">
+        <br> Password:
+        <input type="password" name="clave" class="formulario" id="password">
+        <br>
+        <input class="button" type="button" value="Ingresar" name="boton">
+        <br>
+        <a style="padding-left:10px" class="bold" href="registrobasico.html">Registrate</a>
+    </div>
+	
+    <div style="float:left;width:80%;">
+        <div style="margin-left:40px">
+            Usted esta en : <a class="bold" href="registrobasico.html"> Inicio </a>
+        </div>
+        <div style="padding-left:40px">
+            <h3>Noticia 1</h3>
+            <p> Contenido de la noticia 1
+                <br>Nombre del autor <a href=""> Ver mas</a>
+                </br>
+            </p>
+
+            <h3>Noticia 2</h3>
+            <p> Contenido de la noticia 2
+                <br>Nombre del autor <a href=""> Ver mas</a>
+                </br>
+            </p>
+
+            <h3>Noticia 3</h3>
+            <p> Contenido de la noticia 3
+                <br>Nombre del autor <a href=""> Ver mas</a>
+                </br>
+            </p>
+        </div>
+    </div>
+
+    <div class="footer" style="float:left;width:100%;padding-left:30px">
+        <p>&quot;Curso JAVA WEB&quot; 2016 &copy;</p>
+    </div>
+</body>
+
+</html>
