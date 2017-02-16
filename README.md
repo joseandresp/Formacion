@@ -1,20 +1,2 @@
 # Formacion
-ffefwe
-efeee
-e
-eeeee
-eee
-ee
-e
-e
-ee
-e
-e
-e
-e
-e
-ee
-e
-e
-e
-e
+
