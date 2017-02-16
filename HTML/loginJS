@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+    <title>Principal</title>
+    <LINK rel="stylesheet" href="estilos.css" type="text/css">
+	<script type="text/javascript">
+	
+		function rota(){
+			var imagen=document.getElementById("imagen");
+			if(imagen.src.split("/").pop()=="logo2.png")
+			{
+			
+			imagen.src="logoo.png";
+			}
+			else{
+				imagen.src="logo2.png";
+			}
+		}
+		
+		
+		function comprobar(){
+			var user=document.getElementById("user").value;
+			var password=document.getElementById("password").value;
+			var resultado="False";
+			
+			if(password.length<6){
+			     resultado="False";
+			 }
+			else{
+			
+			 if((password== pasword.toUpperCase()) && (password== pasword.toLowerCase()))
+			 {
+				resultado="False"
+			 }
+			 else 
+			 {
+			  var cadena="0123456789*/-_";
+			  for(i=0;i<password.length;i++)
+			  {
+			    if(cadena.indexOf(password.charAt(i),0)!=-1){
+				
+				resultado="True";
+				}
+			  
+			  
+			  }
+			 
+			 }
+			
+			}
+		
+		  if(resultado="False")
+		  {
+		  alert("mal");
+			document.getElementById("ErrorPassword").innerHTML="El password introducido no es correcto"
+		  }
+		
+		
+		
+		}
+	
+	function Correo(){
+	
+		
+		if (confirm('¿Estas seguro que quieres crear correo?')==true) {
+		  //alert("EnviarCorreo");
+		  document.getElementById("contacto").href="mailto:alguien@alguien.es";
+		  //window.open('mailto:test@example.com');
+		} else {
+          return;
+		}
+	
+	}
+	
+	</script>
+</head>
+
+<body>
+    <div>
+        <img style="margin: 20px" src="logo2.png" alt="Logo Deloitte" id="imagen" onclick="rota()">
+    </div>
+
+    <div style="margin-bottom: 20px">
+        <ul style="padding-left: 0px">
+            <li style="display: inline-block;"><a href="#"> Nuestra Compania </a> </li>
+            <li style="display: inline-block;"><a href="#"> Noticias </a> </li>
+            <li style="display: inline-block;"><a href="#"> Mapa Web </a> </li>
+            <li style="display: inline-block;" onclick="Correo();"><a id="contacto">Contacto</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="background" style="float:left;width:15%;padding-left:30px">
+	<div id="ErrorPassword"></div>
+        Nombre:
+        <input type="text" name="userid" class="formulario" placeholder="Maria" id="user">
+        <br> Password:
+        <input type="password" name="clave" class="formulario" id="password">
+        <br>
+        <input class="button" type="button" value="Ingresar" name="boton" onClick="comprobar()">
+        <br>
+        <a style="padding-left:10px" class="bold" href="registroJS.html">Registrate</a>
+    </div>
+	
+    <div style="float:left;width:80%;">
+        <div style="margin-left:40px">
+            Usted esta en : <a class="bold" href="loginJS.html"> Inicio </a>
+        </div>
+        <div style="padding-left:40px">
+            <h3>Noticia 1</h3>
+            <p> Contenido de la noticia 1
+                <br>Nombre del autor <a href="http://www.heraldo.es/noticias/aragon/2017/02/02/los-menus-escolares-unos-veinte-colegios-zaragozanos-cocinan-malaga-1156766-300.html"> Ver mas</a>
+                </br>
+            </p>
+
+            <h3>Noticia 2</h3>
+            <p> Contenido de la noticia 2
+                <br>Nombre del autor <a href=""> Ver mas</a>
+                </br>
+            </p>
+
+            <h3>Noticia 3</h3>
+            <p> Contenido de la noticia 3
+                <br>Nombre del autor <a href=""> Ver mas</a>
+                </br>
+            </p>
+        </div>
+    </div>
+
+    <div class="footer" style="float:left;width:100%;padding-left:30px">
+        <p>&quot;Curso JAVA WEB&quot; 2016 &copy;</p>
+    </div>
+</body>
+
+</html>
