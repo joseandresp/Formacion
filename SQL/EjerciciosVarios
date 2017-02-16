@@ -1,0 +1,223 @@
+-------------------------------------------------------------------------------
+--------------------EJERCICIO SALIDA POR PANTALLA------------------------------
+-------------------------------------------------------------------------------
+DECLARE
+  v_fecha_alquiler DATE:= '12/12/1990';
+  v_cinco_anios BOOLEAN;
+  
+  
+  BEGIN
+  DBMS_OUTPUT.PUT_LINE ('Prueba');
+  IF MONTHS_BETWEEN (SYSDATE, v_fecha_alquiler) /12 > 5 THEN
+    DBMS_OUTPUT.PUT_LINE ('Han pasado mas de 5 anios');
+   ELSE
+    DBMS_OUTPUT.PUT_LINE ('No han pasado mas de 5 anios');
+   END IF;
+   
+   
+   END;
+
+----------------------------------------------------------------------------------
+----------------INSERTAR TRES EMPLEADOS IDENTICOS EN TABLAS-----------------------
+----------------------------------------------------------------------------------
+
+DECLARE
+ v_empleado_codigo empleados.codigo_empleado%TYPE;
+ v_empleado_nombre empleados.nombre_empleado%TYPE := 'IVAN';
+ v_empleado_edad empleados.edad%TYPE := 50;
+ v_empleado_telefono empleados.telefono%TYPE := '7747474746';
+ v_codigo_departamento empleados.codigo_departamento%TYPE := 3;
+ v_empleado_email empleados.email%TYPE := 'nuevoempleado@gmail.es';
+ 
+ BEGIN
+ 
+ SELECT MAX(codigo_empleado) INTO v_empleado_codigo FROM EMPLEADOS;
+ 
+ FOR i IN 1..3 LOOP
+  INSERT INTO empleados(codigo_empleado,nombre_empleado, edad, telefono, codigo_departamento, email)
+  VALUES((v_empleado_codigo+i),v_empleado_nombre,v_empleado_edad,v_empleado_telefono,v_codigo_departamento,v_empleado_email);
+  
+END LOOP;
+  
+  END;
+
+
+DECLARE
+ v_empleado_codigo empleados.codigo_empleado%TYPE;
+ v_empleado_nombre empleados.nombre_empleado%TYPE := 'IVAN';
+ v_empleado_edad empleados.edad%TYPE := 50;
+ v_empleado_telefono empleados.telefono%TYPE := '7747474746';
+ v_codigo_departamento empleados.codigo_departamento%TYPE := 3;
+ v_empleado_email empleados.email%TYPE := 'nuevoempleado@gmail.es';
+ 
+ BEGIN
+ 
+ SELECT MAX(codigo_empleado) INTO v_empleado_codigo FROM EMPLEADOS;
+ 
+ FOR i IN 1..3 LOOP
+  INSERT INTO empleados(codigo_empleado,nombre_empleado, edad, telefono, codigo_departamento, email)
+  VALUES((v_empleado_codigo+i),v_empleado_nombre,v_empleado_edad,v_empleado_telefono,v_codigo_departamento,v_empleado_email);
+  
+END LOOP;
+  
+  END;
+
+----------------------------------------------------------------------------------
+-----------------DECLARACION DE CURSOR--------------------------------------------
+----------------------------------------------------------------------------------
+
+ DECLARE
+  v_emp_ce EMPLEADOS.CODIGO_EMPLEADO%TYPE;
+  v_emp_ne EMPLEADOS.NOMBRE_EMPLEADO%TYPE;
+  v_emp_e EMPLEADOS.EDAD%TYPE;
+  CURSOR emp_cursor IS
+    SELECT CODIGO_EMPLEADO, NOMBRE_EMPLEADO, EDAD
+    FROM EMPLEADOS;
+    
+ BEGIN
+  OPEN emp_cursor;
+  LOOP
+    FETCH emp_cursor INTO v_emp_ce, v_emp_ne, v_emp_e;
+    EXIT WHEN emp_cursor%ROWCOUNT > 10
+      OR emp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(TO_CHAR(v_emp_ce) || ' ' || v_emp_ne || ' ' || TO_CHAR(v_emp_e));
+  END LOOP;
+  CLOSE emp_cursor;
+ END;
+
+---------------------------------------------------------------------------------------
+-------------FUNCION GET EDAD----------------------------------------------------------
+---------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION  get_edad
+  (p_ce IN EMPLEADOS.CODIGO_EMPLEADO%TYPE) 
+RETURN NUMBER
+IS
+  v_edad EMPLEADOS.EDAD%TYPE:=0; 
+BEGIN
+  SELECT EDAD INTO v_edad FROM EMPLEADOS
+  WHERE CODIGO_EMPLEADO=p_ce;
+  RETURN v_edad;
+END get_edad;
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+---------------INCREMENTAR PRECIO: VERSION ORIGINAL--------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE INCREMENTAR_PRECIO ()
+IS
+
+DECLARE
+v_codart_max ARTICULOS.COD_ARTICULO%TYPE;
+v_precio_actual max ARTICULOS.COD_ARTICULO%TYPE;
+v_nuevo_precio max ARTICULOS.COD_ARTICULO%TYPE;
+
+BEGIN
+SELECT MAX(COD_ARTICULO) INTO v_codart_max FROM ARTICULOS;
+
+ FOR i IN 1..v_codart_max LOOP
+      SELECT PRECIO_UNIDAD INTO v_precio_actual FROM ARTICULOS;
+      WHERE COD_ARTICULO=i;
+      
+      IF(v_precio_actual<35) THEN
+      v_nuevo_precio := 1.05*v_precio_actual;
+      IF (vprecio_actual BETWEEN 36 AND 75)THEN
+      v_nuevo_precio := 1.02*v_precio_actual;
+      ELSE v_nuevo_precio := 1.01*v_precio_actual;
+      END IF;      
+      
+      UPDATE ARTICULOS 
+      SET PRECIO_UNIDAD = v_nuevo_precio
+      WHERE COD_ARTICULO=i;
+    
+ END LOOP;
+ END INCREMENTAR_PRECIO;
+
+
+---------------------------------------------------------------------------------------------------------
+-----------------------INCREMENTAR PRECIO VERSION GONZALO------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+create or replace PROCEDURE AUMENTAR_PRECIO AS
+BEGIN
+  DECLARE
+  V_ID ARTICULOS.COD_ARTICULO%TYPE;
+  V_PRECIO ARTICULOS.PRECIO_UNIDAD%TYPE;
+  CURSOR C_ART IS
+  SELECT COD_ARTICULO, PRECIO_UNIDAD 
+  FROM ARTICULOS;
+  BEGIN
+    OPEN C_ART;
+    LOOP
+      FETCH C_ART INTO V_ID, V_PRECIO;
+      IF V_PRECIO BETWEEN 0 AND 35 THEN
+        UPDATE ARTICULOS SET PRECIO_UNIDAD=PRECIO_UNIDAD*1.5 WHERE COD_ARTICULO=V_ID;
+      ELSIF V_PRECIO BETWEEN 36 AND 75 THEN
+        UPDATE ARTICULOS SET PRECIO_UNIDAD=PRECIO_UNIDAD*1.2 WHERE COD_ARTICULO=V_ID;
+      ELSE
+        UPDATE ARTICULOS SET PRECIO_UNIDAD=PRECIO_UNIDAD*1.1 WHERE COD_ARTICULO=V_ID;
+      END IF;
+    END LOOP;
+    CLOSE C_ART;
+  END;
+END AUMENTAR_PRECIO;
+
+
+
+--------------------------------------------------------------------------------------------------------------
+------------------INCREMENTAR PRECIO MI VERSION --------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE INCREMENTAR_PRECIO AS
+
+BEGIN
+DECLARE
+  v_articulo_precio ARTICULOS.PRECIO_UNIDAD%TYPE;
+  v_articulo_cod ARTICULOS.COD_ARTICULO%TYPE;
+  CURSOR art_cursor IS
+    SELECT PRECIO_UNIDAD, COD_ARTICULO
+    FROM ARTICULOS;
+
+
+BEGIN
+
+OPEN art_cursor;
+  LOOP
+    FETCH art_cursor INTO v_articulo_precio, v_articulo_cod;
+    EXIT WHEN art_cursor%NOTFOUND; 
+  
+    IF(v_articulo_precio<35) THEN  
+    UPDATE ARTICULOS SET PRECIO_UNIDAD = v_articulo_precio*1.05 WHERE COD_ARTICULO=v_articulo_cod;
+      
+    ELSE IF (v_articulo_precio BETWEEN 36 AND 75)THEN
+    UPDATE ARTICULOS SET PRECIO_UNIDAD = v_nuevo_precio*1.02 WHERE COD_ARTICULO=v_articulo_cod;;
+    
+    ELSE IF (v_articulo_precio BETWEEN 76 AND 100) 
+    UPDATE ARTICULOS SET PRECIO_UNIDAD = v_nuevo_precio*1.01 WHERE COD_ARTICULO=v_articulo_cod;
+    END IF;
+      
+       
+  END LOOP;
+  CLOSE emp_cursor;
+ END INCREMENTAR_PRECIO
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+public static void setListaClientes(List<Cliente> clientes) throws SQLException{
+
+		Connection connection = null;
+		Statement statement = null;
+		try {
+			connection = DatabaseConnection.getConnection();
+			for (int i = 0; i < clientes.size(); i++) {
+				String query = "INSERT INTO CLIENTES (COD_CLIENTE,NOMBRE,NUM_TELEFONO,EMAIL,DIRECCION) VALUES ("+clientes.get(i).getCod_cliente()+",'"+clientes.get(i).getNombre()+"','"+clientes.get(i).getNum_telefono()+
+						"','"+clientes.get(i).getEmail()+"','"+clientes.get(i).getDireccion()+"')";
+				statement = connection.createStatement();
+				statement.executeUpdate(query);
+			}		
+			
+		} catch (SQLException sqlException) {
+			System.out.println("Excepción insertando los clientes");
+			sqlException.printStackTrace();
+		} finally {
+			statement.close();
+			connection.close();
+		}
+	}
