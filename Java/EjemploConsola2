@@ -1,0 +1,63 @@
+package es.dxd;
+
+import java.util.Scanner;
+
+public class EmpresaTest {
+	
+	
+
+	
+	public static void main(String[] args) {
+		Plantilla plantilla = new Plantilla();
+		Scanner scan = new Scanner(System.in);
+		String opt;
+		do{
+			System.out.println("Elige una operacion (X para salir):");
+			System.out.println("\t1. Sumar sueldos");
+			System.out.println("\t2. Descontar sueldo");
+			System.out.println("\t3. Subir sueldo");
+			opt = scan.nextLine();
+			
+			switch (opt) {
+			case "1":
+				float sumaSueldos = plantilla.totalizarSueldos();
+				System.out.println("La sum de sueldos es " + sumaSueldos);
+				break;
+			case "2":
+				System.out.println("Seleciona un empleado:");
+				for (int i = 0; i < plantilla.getListaPersonas().length; i++) {
+					System.out.println(i + " " + plantilla.getListaPersonas()[i]);
+				}
+				opt = scan.nextLine();
+				plantilla.descontarPorcentaje((Empleado)plantilla.getListaPersonas()[Integer.parseInt(opt)]);
+				break;
+			case "3":
+				System.out.println("Seleciona un jefe:");
+				for (int i = 0; i < plantilla.getListaPersonas().length; i++) {
+					if (plantilla.getListaPersonas()[i] instanceof Jefe) {
+						System.out.println(i + " " + plantilla.getListaPersonas()[i]);
+					}
+				}
+				opt = scan.nextLine();
+				Jefe jefe = (Jefe) plantilla.getListaPersonas()[Integer.parseInt(opt)];
+				System.out.println("Seleciona un empleado:");
+				for (int i = 0; i < plantilla.getListaPersonas().length; i++) {
+					if (plantilla.getListaPersonas()[i] instanceof Empleado) {
+						System.out.println(plantilla.getListaPersonas()[i]);
+					}
+				}
+				opt = scan.nextLine();
+				Empleado empleado = (Empleado) plantilla.getListaPersonas()[Integer.parseInt(opt)];
+				System.out.println("Introduce el incrmento:");
+				opt = scan.nextLine();
+				jefe.subirSueldo(empleado, Float.parseFloat(opt));
+				break;
+			default:
+				break;
+			}
+			for (int i = 0; i < plantilla.getListaPersonas().length; i++) {
+				System.out.println(i + " " + plantilla.getListaPersonas()[i]);
+			}
+		} while (!"X".equalsIgnoreCase(opt));
+	}
+}
