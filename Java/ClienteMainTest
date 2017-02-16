@@ -1,0 +1,64 @@
+package es.dxd.form.ejc06;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class ClientMainTest extends Exception{
+	private static final long serialVersionUID = 1L;
+	private static Scanner leer = new Scanner(System.in);
+	private static String opcion, nombre, edad, telefono;
+	private static Map<String, Client> listaClientes = new HashMap<>();
+
+	public static void main(String[] args) {
+		
+		// HACEMOS EL TRY CATCH
+		try {
+			
+			// MENU EN CONSOLA
+			System.out.println("*****************************");
+			System.out.println("**** INSERCIÓN DE CLIENTES **");
+			System.out.println("*****************************");
+			System.out.print("\nSistema de insercion de clientes (X para salir)");
+			
+			// MIENTRAS LA OPCION SEA DIFERENTE QUE "X"
+			do {
+				System.out.println("\n**** NUEVO CLIENTE ****");
+				System.out.print("1) Introduzca nombre (X para salir): ");
+				nombre = opcion = leer.nextLine().toUpperCase();
+
+				if (!"X".equals(opcion)) {
+					System.out.print("2) Introduzca edad (X para salir): ");
+					edad = opcion = leer.nextLine().toUpperCase();
+
+					if (!"X".equals(opcion)) {
+						System.out.print("3) Introduzca n. de telefono (X para salir): ");
+						telefono = opcion = leer.nextLine().toUpperCase();
+
+						if (!"X".equals(opcion)) {
+							Client client = new Client();
+							client.setNombre(nombre);
+							client.setEdad(Integer.valueOf(edad));
+							client.setTelefono(telefono);
+							listaClientes.put(nombre, client);
+						}
+					}
+				}
+			} while (!"X".equals(opcion));
+
+			System.out.println("\nSe han insertado " + listaClientes.size() + " clientes:");
+
+			// RECORREMOS/MOSTRAMOS TODOS LOS CLIENTES
+			for (Client clientAdded : listaClientes.values()) {
+				System.out.println("\n****** Cliente ******");
+				System.out.println("- Nombre: " + clientAdded.getNombre());
+				System.out.println("- Edad: " + clientAdded.getEdad());
+				System.out.println("- Telefono: " + clientAdded.getTelefono());
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Error general: " + e.getMessage());
+		}catch (ClientException clientException) {
+			System.out.println("Error creando el cliente. Codigo: " + clientException.getErrorCode() + ". Mensaje: " + clientException.getMessage());
+		} 
+	}
+}
